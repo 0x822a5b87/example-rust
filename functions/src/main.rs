@@ -1,23 +1,65 @@
-#![allow(unused_variables)]
+#![allow(unused_variables, dead_code)]
 
 fn main() {
-    let g = 0;
-    let _x = 5;
+    loop_with_index_rev()
+}
 
-    let y = {
-        let x = 3;
-        x + 1
+fn loop_with_index_rev() {
+    for index in (0..4).rev() {
+        println!("index = {index}")
+    }
+}
+
+fn loop_with_index() {
+    let a = [1, 2, 3, 4, 5];
+    for index in 0..a.len() {
+        println!("index = {index}, value = {}", a[index])
+    }
+}
+
+fn loop_with_for() {
+    let a = [1, 2, 3, 4, 5];
+    for (index, v ) in a.into_iter().enumerate() {
+        println!("index = {index}, value = {v}")
+    }
+}
+
+fn loop_labels_to_disambiguate_between_multiple_loops() {
+    let mut count = 0;
+    'counting_up: loop {
+        println!("count = {count}");
+
+        let mut remaining = 10;
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+
+            if count == 2 {
+                break 'counting_up;
+            }
+
+            remaining -= 1;
+        }
+
+        count += 1
+    }
+
+    println!("End count = {count}")
+}
+
+fn returning_values_from_loop() {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            break counter * 10;
+        };
     };
-    println!("The value of y is : {}", y);
 
-    another_function(10i32);
-    let a = 10;
-    another_function(a);
-
-    expression_can_be_part_of_statements();
-    calling_a_function_is_a_expression();
-    calling_a_macro_is_a_expression();
-    curly_bracket_is_a_expression();
+    println!("returning_values_from_loop: counter = {}, return = {}", counter, result)
 }
 
 fn another_function(x: i32) {
