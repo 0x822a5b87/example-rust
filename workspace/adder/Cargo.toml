@@ -1,0 +1,9 @@
+[package]
+name = "adder"
+version = "0.1.0"
+edition = "2021"
+resolver = "2"
+
+[dependencies]
+add_one = { version = "0.1.0", path = "../add_one" }
+rand = "0.8.5"
